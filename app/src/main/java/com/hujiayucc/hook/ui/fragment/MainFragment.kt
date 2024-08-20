@@ -16,11 +16,6 @@ import com.highcapable.yukihookapi.hook.factory.prefs
 import com.highcapable.yukihookapi.hook.xposed.application.ModuleApplication.Companion.appContext
 import com.hujiayucc.hook.BuildConfig
 import com.hujiayucc.hook.R
-import com.hujiayucc.hook.author.Auth.Companion.baseUrl
-import com.hujiayucc.hook.author.Auth.Companion.executePost
-import com.hujiayucc.hook.author.Author.Companion.emailPrefs
-import com.hujiayucc.hook.author.Author.Companion.passwdPrefs
-import com.hujiayucc.hook.author.Author.Companion.sessionPrefs
 import com.hujiayucc.hook.databinding.FragmentMainBinding
 import com.hujiayucc.hook.ui.activity.MainActivity.Companion.searchText
 import com.hujiayucc.hook.ui.adapter.AppInfo
@@ -244,32 +239,8 @@ class MainFragment : Fragment() {
                     "appName" to (appInfo.applicationInfo?.loadLabel(appContext.packageManager) ?: ""),
                     "packageName" to appInfo.packageName,
                     "versionName" to appInfo.versionName,
-                    "versionCode" to appInfo.longVersionCode,
-                    "email" to appContext.prefs().get(emailPrefs),
-                    "passwd" to appContext.prefs().get(passwdPrefs),
-                    "session" to appContext.prefs().get(sessionPrefs)
                 )
 
-                Thread {
-                    executePost("$baseUrl/submit", map)?.let {
-                        try {
-                            val jsonObject = JSONObject(it)
-                            activity?.runOnUiThread {
-                                Toast.makeText(
-                                    appContext,
-                                    jsonObject.getString("message") ?: getString(R.string.submit_failed),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        } catch (e: JSONException) {
-                            Toast.makeText(
-                                appContext, getString(R.string.submit_failed), Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } ?: activity?.runOnUiThread {
-                        Toast.makeText(appContext, getString(R.string.submit_failed), Toast.LENGTH_SHORT).show()
-                    }
-                }.start()
             }
             true
         }

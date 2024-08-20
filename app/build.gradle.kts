@@ -74,7 +74,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.3.1")
     // implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("com.github.yalantis:ucrop:2.2.6")
-    implementation(project(":Author"))
+//    implementation(project(":Author"))
 
     // 基础依赖
     implementation("com.highcapable.yukihookapi:api:1.2.1")
