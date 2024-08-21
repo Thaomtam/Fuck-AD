@@ -13,7 +13,7 @@ android {
         minSdk = 26
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
-        versionCode = 6800
+        versionCode = 99999
         versionName = "9.9.9"
 
         buildConfigField("String", "SERVICE_NAME", "\"com.hujiayucc.hook.service.SkipService\"")
