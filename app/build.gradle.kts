@@ -14,7 +14,7 @@ android {
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
         versionCode = 6800
-        versionName = "1.3.8"
+        versionName = "9.9.9"
 
         buildConfigField("String", "SERVICE_NAME", "\"com.hujiayucc.hook.service.SkipService\"")
         buildConfigField("String", "TAG", "\"Fuck AD\"")
@@ -74,7 +74,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.3.1")
     // implementation("androidx.fragment:fragment-ktx:1.3.6")
     implementation("com.github.yalantis:ucrop:2.2.6")
-//    implementation(project(":Author"))
 
     // 基础依赖
     implementation("com.highcapable.yukihookapi:api:1.2.1")
