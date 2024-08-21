@@ -9,6 +9,9 @@ import com.hujiayucc.hook.data.Data.ACTION
 import com.hujiayucc.hook.data.Data.isAccessibilitySettingsOn
 import com.hujiayucc.hook.data.Data.runService
 
+/**
+ * 无障碍启动服务
+ */
 class BootReceiver : BroadcastReceiver() {
 
      override fun onReceive(context: Context, intent: Intent) {
@@ -16,7 +19,6 @@ class BootReceiver : BroadcastReceiver() {
             ACTION,
             Intent.ACTION_BOOT_COMPLETED -> {
                 if (
-                    context.prefs().getString("session").isNotBlank() &&
                     !context.isAccessibilitySettingsOn(SERVICE_NAME)
                 ) {
                     context.runService()
