@@ -298,7 +298,6 @@ open class BaseActivity: ModuleAppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (prefs().getString("session").isBlank()) return false
         return when (item.itemId) {
             R.id.menu_global -> {
                 item.isChecked = !item.isChecked
