@@ -34,10 +34,15 @@ object Data {
     const val ACTION = "com.hujiayucc.hook.service.SkipService"
     /** 获取项目编译完成的时间戳 (当前本地时间) */
     val buildTime: String = format.format(Date(YukiHookAPI.Status.compiledTimestamp))
+    /** 全局 */
     val global: PrefsData<Boolean> = PrefsData("global", true)
+    /** 提示 */
     val hookTip: PrefsData<Boolean> = PrefsData("hookTip", true)
+    /** 语言 */
     val localeId: PrefsData<Int> = PrefsData("locale", 0)
+    /** 背景 */
     val background: PrefsData<String> = PrefsData("background", "")
+    /** 跳过次数统计 */
     var skipCount = 0
 
     /**
