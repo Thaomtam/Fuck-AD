@@ -3,7 +3,7 @@ on:
   push:
     tags:
       - "v*"
-  workflow_dispatch: # Kích hoạt chạy thủ công
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 11
+          java-version: 17 # Đặt phiên bản Java là 17
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: current
