@@ -1,7 +1,7 @@
 name: Build and Upload APK
 
 on:
-  workflow_dispatch: # Cho phép chạy thủ công từ giao diện GitHub Actions
+  workflow_dispatch:
 
 jobs:
   build-apk:
@@ -15,7 +15,7 @@ jobs:
     - name: Setup JDK
       uses: actions/setup-java@v3
       with:
-        distribution: 'zulu' # Sử dụng Zulu JDK
+        distribution: 'zulu'
         java-version: '17'
 
     - name: Setup Android SDK
@@ -32,6 +32,9 @@ jobs:
         key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           gradle-cache-${{ runner.os }}-
+
+    - name: Make Gradlew Executable
+      run: chmod +x ./gradlew # Gán quyền thực thi cho gradlew
 
     - name: Build APK
       run: ./gradlew assembleRelease
