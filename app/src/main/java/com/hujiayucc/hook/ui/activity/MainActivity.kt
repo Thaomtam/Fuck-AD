@@ -1,49 +1,62 @@
 package com.hujiayucc.hook.ui.activity
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
-import com.hujiayucc.hook.data.Data.id
-import com.hujiayucc.hook.data.Data.name
-import com.hujiayucc.hook.ui.base.BaseActivity
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
+class MainActivity : AppCompatActivity() {
 
-class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        Author(this, true, id, name)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(this, Manifest.permission.QUERY_ALL_PACKAGES) != PackageManager.PERMISSION_GRANTED)
-            allAppPermission.launch(Manifest.permission.QUERY_ALL_PACKAGES)
-        else initView()
+        setContentView(R.layout.activity_main)
 
-        if (checkSelfPermission(Manifest.permission.CHANGE_CONFIGURATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CHANGE_CONFIGURATION), 1)
+        // Android ID
+        val androidIdValue = findViewById<TextView>(R.id.android_id_value)
+        val randomAndroidIdButton = findViewById<Button>(R.id.random_android_id)
+        val editAndroidIdButton = findViewById<Button>(R.id.edit_android_id)
+
+        // Device
+        val deviceValue = findViewById<TextView>(R.id.device_value)
+        val randomDeviceButton = findViewById<Button>(R.id.random_device)
+        val editDeviceButton = findViewById<Button>(R.id.edit_device)
+
+        // Set up Random Android ID button
+        randomAndroidIdButton.setOnClickListener {
+            val newAndroidId = generateRandomAndroidId()
+            androidIdValue.text = newAndroidId
+            Toast.makeText(this, "Android ID randomized: $newAndroidId", Toast.LENGTH_SHORT).show()
         }
 
-        // 适配 Android13/Android14 通知权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-                val intent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-                startActivity(intent)
-            }
+        // Set up Edit Android ID button
+        editAndroidIdButton.setOnClickListener {
+            // Logic to edit Android ID (can be a dialog or another activity)
+            Toast.makeText(this, "Edit Android ID clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        // Set up Random Device button
+        randomDeviceButton.setOnClickListener {
+            val newDevice = generateRandomDevice()
+            deviceValue.text = newDevice
+            Toast.makeText(this, "Device randomized: $newDevice", Toast.LENGTH_SHORT).show()
+        }
+
+        // Set up Edit Device button
+        editDeviceButton.setOnClickListener {
+            // Logic to edit Device (can be a dialog or another activity)
+            Toast.makeText(this, "Edit Device clicked", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private val allAppPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        if (isGranted) {
-            initView()
-        }
+    // Generate a random Android ID (placeholder logic)
+    private fun generateRandomAndroidId(): String {
+        return List(16) { (('0'..'9') + ('a'..'f')).random() }.joinToString("")
     }
 
-    companion object {
-        var searchText = ""
+    // Generate a random Device Model (placeholder logic)
+    private fun generateRandomDevice(): String {
+        val deviceModels = listOf("Pixel 5", "Galaxy S21", "OnePlus 9", "Xiaomi Mi 11")
+        return deviceModels.random()
     }
 }
